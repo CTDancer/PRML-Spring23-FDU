@@ -4,7 +4,7 @@ test knn
 
 import numpy as np
 from numpy.testing import assert_array_equal
-from fduml.neighbors import KNeighborsClassifier
+from k_nearest_neighbor import KNeighborsClassifier
 
 def test_kneighbors_classifier(
         num_train=40,
@@ -33,3 +33,5 @@ def test_kneighbors_classifier(
     knn.fit(X, y)
     y_pred = knn.predict(X[:num_test] + epsilon)
     assert_array_equal(y_pred, y[:num_test])
+
+test_kneighbors_classifier()

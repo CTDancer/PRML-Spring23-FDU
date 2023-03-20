@@ -2,7 +2,7 @@
 Linear Regression
 """
 import numpy as np
-from .linear import LinearModel
+from linear import LinearModel
 
 class LinearRegression(LinearModel):
     """
@@ -26,7 +26,7 @@ class LinearRegression(LinearModel):
         L2 regularization strength.
     """
 
-    def __init__(self, reg=0.0):
+    def __init__(self, reg=0.0001):
         self.coef_ = None
         self.intercept_ = None
 
@@ -54,12 +54,19 @@ class LinearRegression(LinearModel):
         # in the self.coef_. and self.intercept_ respectively.                    #
         #                                                                         #
         # Notice:                                                                 #
-        # You can NOT use the linear algebra lib 'numpy.linalg' of numpy.         #
         # Do not forget the self.reg_ item.                                       #
         ###########################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        X = np.c_[np.ones(X.shape[0]), X]
+        reg_I = self.reg_ * np.eye(X.shape[1])
+
+        reg_I[0,0] = 0
+
+        w = np.linalg.inv(X.T.dot(X) + reg_I).dot(X.T).dot(y)
+
+        self.coef_ = w[1:, 0]
+        self.intercept_ = w[0, 0]
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         assert self.coef_ is not None
@@ -86,7 +93,7 @@ class LinearRegression(LinearModel):
         ###########################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        y_pred = X.dot(self.coef_.T) + self.intercept_
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return y_pred

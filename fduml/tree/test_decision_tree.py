@@ -4,7 +4,7 @@ decision tree test
 
 import numpy as np
 from numpy.testing import assert_array_equal
-from fduml.tree import DecisionTreeClassifier
+from decision_tree import DecisionTreeClassifier
 
 def test_dt_classification():
     X = np.array([[-2, -1], [-1, -1], [-1, -2], [1, 1], [1, 2], [2, 1]])
@@ -35,3 +35,5 @@ def test_dt_classification():
     dt_clf = DecisionTreeClassifier(criterion = criterion, random_state=0)
     dt_clf.fit(X, y)
     assert_array_equal(dt_clf.predict(T), true_result, "Failed with {}".format(criterion))
+
+test_dt_classification()
